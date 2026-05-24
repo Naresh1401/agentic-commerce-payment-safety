@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PaymentMandate",
+  "type": "object",
+  "required": [
+    "user_id",
+    "cart_id",
+    "total_amount",
+    "currency",
+    "merchant_id",
+    "allowed_payment_method",
+    "timestamp",
+    "user_confirmation_text",
+    "signature_simulated"
+  ],
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "cart_id": {
+      "type": "string"
+    },
+    "total_amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "merchant_id": {
+      "type": "string"
+    },
+    "allowed_payment_method": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "user_confirmation_text": {
+      "type": "string"
+    },
+    "signature_simulated": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "08",
+  "repo": "agentic-commerce-payment-safety",
+  "title": "AP2-Style Payment Safety Simulation",
+  "summary": "Mock payment mandate, idempotency, duplicate blocking, success, decline, and audit trail simulation.",
+  "copy": [
+    "ap2-payment-safety",
+    "ap2-payment-safety.md"
+  ],
+  "extra_tests": {
+    "tests/test_payment_safety.py": "\n                import importlib.util\n                import sys\n                from pathlib import Path\n\n                module_dir = Path('ap2-payment-safety').resolve()\n                sys.path.insert(0, str(module_dir))\n                spec = importlib.util.spec_from_file_location('simulate_payment_flow', module_dir / 'simulate_payment_flow.py')\n                module = importlib.util.module_from_spec(spec)\n                spec.loader.exec_module(module)\n\n                def test_payment_success_and_duplicate_block():\n                    mandate = module.create_mandate()\n                    first = module.authorize_payment(mandate, 'pytest_idem')\n                    second = module.authorize_payment(mandate, 'pytest_idem')\n                    assert first['status'] == 'authorized'\n                    assert second['status'] == 'duplicate_blocked'\n            "
+  },
+  "verify": "python3.11 -m pytest tests",
+  "run": "cd ap2-payment-safety && python3.11 simulate_payment_flow.py"
+}
